@@ -1016,13 +1016,18 @@ const infoUserBank = async (req, res) => {
    const [G5dWonResult] = await connection.query(`SELECT SUM(\`get\`) AS G5dWonMoney FROM result_5d WHERE phone = '${userInfo.phone}'`)
    const G5dWonMoney = Number(G5dWonResult[0].G5dWonMoney) || 0
 
-   const [wingoLossResult] = await connection.query(`SELECT SUM(money) AS wingoLossMoney FROM minutes_1 WHERE phone = '${userInfo.phone}' AND get = 0`)
+   const [wingoLossResult] = await connection.query(
+      `SELECT SUM(money) AS wingoLossMoney 
+       FROM minutes_1 
+       WHERE phone = ? AND \`get\` = ?`, 
+      [userInfo.phone, 0]
+  );
    const wingoLossMoney = Number(wingoLossResult[0].wingoLossMoney) || 0
 
-   const [k3LossResult] = await connection.query(`SELECT SUM(money) AS k3LossMoney FROM result_k3 WHERE phone = '${userInfo.phone}' AND get = 0`)
+   const [k3LossResult] = await connection.query(`SELECT SUM(money) AS k3LossMoney FROM result_k3 WHERE phone = '${userInfo.phone}' AND \`get\` = 0`)
    const k3LossMoney = Number(k3LossResult[0].k3LossMoney) || 0
 
-   const [G5LossResult] = await connection.query(`SELECT SUM(money) AS G5dLossMoney FROM result_5d WHERE phone = '${userInfo.phone}' AND get = 0`)
+   const [G5LossResult] = await connection.query(`SELECT SUM(money) AS G5dLossMoney FROM result_5d WHERE phone = '${userInfo.phone}' AND \`get\` = 0`)
    const G5dLossMoney = Number(G5LossResult[0].G5dLossMoney) || 0
 
    const [withdrawResult] = await connection.query(`SELECT SUM(money) AS totalWithdraw FROM withdraw WHERE phone = '${userInfo.phone}' AND status = 1`)
