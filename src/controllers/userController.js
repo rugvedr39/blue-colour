@@ -1006,13 +1006,14 @@ const infoUserBank = async (req, res) => {
    //    let checkTime = timerJoin(date)
    //    const [recharge] = await connection.query("SELECT * FROM recharge WHERE phone = ? AND status = 1", [userInfo.phone])
 
-   const [wingoWonResult] = await connection.query(`SELECT SUM(get) AS wingoWonMoney FROM minutes_1 WHERE phone = '${userInfo.phone}'`)
-   const wingoWonMoney = Number(wingoWonResult[0].wingoWonMoney) || 0
+   const [wingoWonResult] = await connection.query(`SELECT SUM(\`get\`) AS wingoWonMoney FROM minutes_1 WHERE phone = '${userInfo.phone}'`);
+   const wingoWonMoney = Number(wingoWonResult[0].wingoWonMoney) || 0;
+   
 
-   const [k3WonResult] = await connection.query(`SELECT SUM(get) AS k3WonMoney FROM result_k3 WHERE phone = '${userInfo.phone}'`)
+   const [k3WonResult] = await connection.query(`SELECT SUM(\`get\`) AS k3WonMoney FROM result_k3 WHERE phone = '${userInfo.phone}'`)
    const k3WonMoney = Number(k3WonResult[0].k3WonMoney) || 0
 
-   const [G5dWonResult] = await connection.query(`SELECT SUM(get) AS G5dWonMoney FROM result_5d WHERE phone = '${userInfo.phone}'`)
+   const [G5dWonResult] = await connection.query(`SELECT SUM(\`get\`) AS G5dWonMoney FROM result_5d WHERE phone = '${userInfo.phone}'`)
    const G5dWonMoney = Number(G5dWonResult[0].G5dWonMoney) || 0
 
    const [wingoLossResult] = await connection.query(`SELECT SUM(money) AS wingoLossMoney FROM minutes_1 WHERE phone = '${userInfo.phone}' AND get = 0`)
