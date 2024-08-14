@@ -341,28 +341,30 @@ const forGotPassword = async (req, res) => {
 
 const keFuMenu = async (req, res) => {
    let auth = req.cookies.auth
-
+   
    const [users] = await connection.query("SELECT `level`, `ctv` FROM users WHERE token = ?", [auth])
 
    let telegram = ""
+   let whatsapp = ""
    if (users.length == 0) {
-      let [settings] = await connection.query("SELECT `telegram`, `cskh` FROM admin")
+      let [settings] = await connection.query("SELECT `telegram`, `cskh`,`whatsapp` FROM admin")
       telegram = settings[0].telegram
+      whatsapp = settings[0].whatsapp
    } else {
       if (users[0].level != 0) {
          var [settings] = await connection.query("SELECT * FROM admin")
       } else {
-         var [check] = await connection.query("SELECT `telegram` FROM point_list WHERE phone = ?", [users[0].ctv])
+         var [check] = await connection.query("SELECT `telegram`,`whatsapp` FROM point_list WHERE phone = ?", [users[0].ctv])
          if (check.length == 0) {
             var [settings] = await connection.query("SELECT * FROM admin")
          } else {
-            var [settings] = await connection.query("SELECT `telegram` FROM point_list WHERE phone = ?", [users[0].ctv])
+            var [settings] = await connection.query("SELECT `telegram`,`whatsapp` FROM point_list WHERE phone = ?", [users[0].ctv])
          }
       }
       telegram = settings[0].telegram
+      whatsapp = settings[0].whatsapp
    }
-
-   return res.render("keFuMenu.ejs", { telegram })
+   return res.render("keFuMenu.ejs", { telegram,whatsapp })
 }
 
 module.exports = {

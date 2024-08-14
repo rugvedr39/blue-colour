@@ -761,6 +761,7 @@ const settingCskh = async (req, res) => {
    let telegram = req.body.telegram
    let cskh = req.body.cskh
    let myapp_web = req.body.myapp_web
+   let whatsapp = req.body.whatsapp
    if (!auth || !cskh || !telegram) {
       return res.status(200).json({
          message: "Failed",
@@ -768,7 +769,7 @@ const settingCskh = async (req, res) => {
          timeStamp: timeNow,
       })
    }
-   await connection.query(`UPDATE admin SET telegram = ?, cskh = ?, app = ?`, [telegram, cskh, myapp_web])
+   await connection.query(`UPDATE admin SET telegram = ?, whatsapp = ?, cskh = ?, app = ?`, [telegram,whatsapp, cskh, myapp_web])
    return res.status(200).json({
       message: "Successful change",
       status: true,

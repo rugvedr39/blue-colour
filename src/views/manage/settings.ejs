@@ -103,6 +103,9 @@
                                     <label for="telegram" style="color: #3498db;">Telegram</label>
                                     <input type="text" class="form-control" id="telegram"
                                         placeholder="Enter Telegram Link" value=""><br>
+                                    <label for="telegram" style="color: #3498db;">WhatsApp</label>
+                                    <input type="text" class="form-control" id="whatsApp"
+                                        placeholder="Enter WhatsApp Link" value=""><br>
                                     <label for="cskh" style="color: #3498db;">Online Services</label>
                                     <input type="text" class="form-control" id="cskh" placeholder="Online Services"
                                         value=""><br>
@@ -144,6 +147,7 @@
                 // $('#edit-momo-qr').val(momo.qr_code_image);
 
                 $('#telegram').val(response.settings[0].telegram);
+                $('#whatsApp').val(response.settings[0].whatsapp);
                 $('#cskh').val(response.settings[0].cskh);
                 $('#myapp_web').val(response.settings[0].app);
             }
@@ -276,6 +280,7 @@
             e.preventDefault();
             const telegram = $('#telegram').val();
             const cskh = $('#cskh').val();
+            const whatsapp = $('#whatsApp').val();
             const myapp_web = $('#myapp_web').val();
             $.ajax({
                 type: "POST",
@@ -284,6 +289,7 @@
                     telegram: telegram,
                     cskh: cskh,
                     myapp_web: myapp_web,
+                    whatsapp: whatsapp,
                 },
                 dataType: "json",
                 success: function (response) {
