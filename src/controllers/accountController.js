@@ -354,11 +354,11 @@ const keFuMenu = async (req, res) => {
       if (users[0].level != 0) {
          var [settings] = await connection.query("SELECT * FROM admin")
       } else {
-         var [check] = await connection.query("SELECT `telegram`,`whatsapp` FROM point_list WHERE phone = ?", [users[0].ctv])
+         var [check] = await connection.query("SELECT `telegram` FROM point_list WHERE phone = ?", [users[0].ctv])
          if (check.length == 0) {
             var [settings] = await connection.query("SELECT * FROM admin")
          } else {
-            var [settings] = await connection.query("SELECT `telegram`,`whatsapp` FROM point_list WHERE phone = ?", [users[0].ctv])
+            var [settings] = await connection.query("SELECT `telegram` FROM point_list WHERE phone = ?", [users[0].ctv])
          }
       }
       telegram = settings[0].telegram
